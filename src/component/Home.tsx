@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, type ReactNode } from "react";
-import { Coffee, Play, Smartphone } from "lucide-react";
+import { Coffee, Play } from "lucide-react";
 
 import tk3 from "../assets/tk-image/tk3.jpg";
 import wats6 from "../assets/tk-image/tk4.jpg";
