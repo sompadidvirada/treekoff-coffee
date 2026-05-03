@@ -1,15 +1,6 @@
 import React, { useState, useEffect, useRef, type ReactNode } from "react";
 import { Coffee, Play } from "lucide-react";
 
-import tk3 from "../assets/tk-image/tk3.jpg";
-import wats6 from "../assets/tk-image/tk4.jpg";
-import wats7 from "../assets/tk-image/tk5.jpg";
-import wats8 from "../assets/tk-image/tk6.jpg";
-
-import wats1 from "../assets/tk-image/ws1.jpg";
-import wats2 from "../assets/tk-image/ws2.jpg";
-import wats3 from "./../assets/tk-image/tk1.jpg";
-import wats4 from "../assets/tk-image/tk2.jpg";
 import { SiApple } from "@icons-pack/react-simple-icons";
 import { useNavigate } from "react-router-dom";
 
@@ -101,7 +92,7 @@ const handleOpenDetail = (id: string | number) => {
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
-  const slides: string[] = [wats1, wats2, wats3, wats4];
+  const slides: string[] = ["/tk-image/ws1.jpg", "/tk-image/ws2.jpg", "/tk-image/tk1.jpg", "/tk-image/tk2.jpg"];
   const navigator = useNavigate();
 
   useEffect(() => {
@@ -694,7 +685,7 @@ const Home = () => {
                   Pinned Story
                 </div>
                 <img
-                  src={tk3}
+                  src={"/tk-image/tk3.jpg"}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
                 />
               </div>
@@ -716,7 +707,7 @@ const Home = () => {
               {[
                 {
                   id: 1,
-                  image: wats6,
+                  image: "/tk-image/tk4.jpg",
                   date: "April 28, 2026",
                   title: "ໂປຮໂມຊັ່ນສະຫຼອງສາຂາເປີດໃຫ່ມ ສາຂາ ໂພນສີນສນ",
                   description:
@@ -724,7 +715,7 @@ const Home = () => {
                 },
                 {
                   id: 2,
-                  image: wats7,
+                  image: "/tk-image/tk5.jpg",
                   date: "April 28, 2026",
                   title: "ໂປຮໂມຊັ່ນສະຫຼອງສາຂາເປີດໃຫ່ມ ສາຂາ ໂພນສີນສນ",
                   description:
@@ -732,7 +723,7 @@ const Home = () => {
                 },
                 {
                   id: 3,
-                  image: wats8,
+                  image: "/tk-image/tk6.jpg",
                   date: "April 28, 2026",
                   title: "ສາຂາ ໜອງດ້ວງ ເປີດເປັນທາງການ",
                   description:

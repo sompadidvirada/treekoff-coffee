@@ -1,5 +1,4 @@
 import { Coffee, Laptop, Receipt, Users } from "lucide-react";
-import tkLogo from "../assets/tk-image/tk-logo.png";
 import { SiWhatsapp } from "@icons-pack/react-simple-icons";
 import PageTransition from "./PageTransition";
 
@@ -32,7 +31,7 @@ const JoinOurTeam = () => {
             <div className="w-48 md:w-64 mx-auto mb-[-20px] md:mb-[-40px] py-0 md:pb-10">
               {/* Reduced negative margin so it doesn't overlap text on small screens */}
               <img
-                src={tkLogo}
+                src={"/tk-image/tk-logo.png"}
                 alt="Treekoff Logo"
                 className="w-full h-auto object-contain"
               />

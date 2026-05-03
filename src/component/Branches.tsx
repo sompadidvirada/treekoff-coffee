@@ -1,8 +1,4 @@
 import { Image, MapPin } from "lucide-react";
-import tk7 from "../assets/tk-image/tk7.jpg";
-import tk8 from "../assets/tk-image/tk8.jpg";
-import tk9 from "../assets/tk-image/tk9.jpg";
-import tk10 from "../assets/tk-image/tk10.jpg";
 import PageTransition from "./PageTransition";
 
 const Branches = () => {
@@ -47,7 +43,7 @@ const Branches = () => {
                 {
                   id: 1,
                   ratng: 9.2,
-                  image: tk7,
+                  image: "/tk-image/tk7.jpg",
                   name: "ສາຂາ ໜອງໜ່ຽງ",
                   province: "ນະຄອນຫຼວງວຽງຈັນ",
                   location: "",
@@ -57,7 +53,7 @@ const Branches = () => {
                 {
                   id: 2,
                   ratng: 7.2,
-                  image: tk8,
+                  image: "/tk-image/tk8.jpg",
                   name: "ສາຂາ ວັດຈັນ",
                   province: "ນະຄອນຫຼວງວຽງຈັນ",
                   location: "",
@@ -67,7 +63,7 @@ const Branches = () => {
                 {
                   id: 3,
                   ratng: 9.2,
-                  image: tk9,
+                  image: "tk-image/tk9.jpg",
                   name: "ສາຂາ ພາກຊັ້ນ",
                   province: "ນະຄອນຫຼວງວຽງຈັນ",
                   location: "",
@@ -78,7 +74,7 @@ const Branches = () => {
                   id: 4,
                   ratng: 9.2,
                   name: "ສາຂາ ວັດແສນ",
-                  image: tk10,
+                  image: "/tk-image/tk10.jpg",
                   province: "ຫຼວງພະບາງ",
                   location: "",
                   phoennumber: "",

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react"; // Make sure to import these
-import tkLogo from "../assets/tk-image/tk-logo.png";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -67,7 +66,7 @@ const Navbar = () => {
       <div className="flex items-center">
         <Link to="/">
           <img
-            src={tkLogo}
+            src={"/tk-image/tk-logo.png"}
             alt="Treekoff Logo"
             className={`transition-all duration-500 object-contain h-18 ${
               isScrolled ? "md:h-18" : "md:h-22"

@@ -1,4 +1,3 @@
-import wats7 from "../assets/tk-image/tk7.jpg";
 import PageTransition from "./PageTransition";
 
 const AboutUs = () => {
@@ -99,7 +98,7 @@ const AboutUs = () => {
               </div>
               <div className="h-[500px] rounded-3xl overflow-hidden group">
                 <img
-                  src={wats7}
+                  src={"/tk-image/tk7.jpg"}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
