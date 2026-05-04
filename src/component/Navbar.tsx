@@ -42,7 +42,7 @@ const Navbar = () => {
       link: "Aboutus",
     },
     {
-      title: "Fanchise",
+      title: "FRANCHISE",
       link: "fanchise",
     },
     {
