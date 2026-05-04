@@ -92,7 +92,12 @@ const handleOpenDetail = (id: string | number) => {
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
-  const slides: string[] = ["/tk-image/ws1.jpg", "/tk-image/ws2.jpg", "/tk-image/tk1.jpg", "/tk-image/tk2.jpg"];
+  const slides: string[] = [
+    "/tk-image/ws1.jpg",
+    "/tk-image/ws2.jpg",
+    "/tk-image/tk1.jpg",
+    "/tk-image/tk2.jpg",
+  ];
   const navigator = useNavigate();
 
   useEffect(() => {
@@ -371,7 +376,7 @@ const Home = () => {
               </div>
               <div className="flex-1 order-1 md:order-2">
                 <img
-                  src="https://images.openai.com/static-rsc-4/73G_L9pgUK0Nxin73oB1evfAaXFSvl2wt9KTO14ECGMcH6Wn0z0TEcB-newqCHRrLQLqNrSt0ZH8FTvWFBF0KF8wrDPtD0gDZmKik4vonuQxoaDF44gzZatvlX78Rvn9ZdS39D7yspVnv4hyPOYhWct9Lp_zT4pMpTtLkK6Hv9N71YTlBH1QMRCjD1eh8f5E?purpose=fullsize"
+                  src="/tk-image/tk26.jpeg"
                   className="rounded-3xl shadow-2xl border border-white/10 hover:scale-105 transition-transform duration-700"
                   alt="QC Process"
                 />
@@ -382,7 +387,7 @@ const Home = () => {
             <div className="flex flex-col md:flex-row items-center gap-12 md:gap-20">
               <div className="flex-1">
                 <img
-                  src="https://www.foodandwine.com/thmb/XbKXqQvF61Csj9XLs_Nj3xwlwEI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Everything-You-Need-To-Know-About-Arabica-Coffee-FT-BLOG0822-2000-127d1551916e45138ea373de75f08138.jpg"
+                  src="/tk-image/tk27.jpg"
                   className="rounded-3xl shadow-2xl border border-white/10 hover:scale-105 transition-transform duration-700"
                   alt="Bean Sourcing"
                 />
@@ -427,7 +432,7 @@ const Home = () => {
               </div>
               <div className="flex-1 order-1 md:order-2">
                 <img
-                  src="https://scontent.fvte3-1.fna.fbcdn.net/v/t39.30808-6/581390508_878022934738938_1998320758660252564_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=7b2446&_nc_ohc=PuOBC4rzit8Q7kNvwEMwKCV&_nc_oc=Adqqe4U_r7XY5TuhXfWySZgantVG6S5xPKzyohshyvOs3VzCd9ryUGViMrEDzEwVkiU&_nc_zt=23&_nc_ht=scontent.fvte3-1.fna&_nc_gid=Nh92sqWBvl-TAQx4OLrOmw&_nc_ss=7b2a8&oh=00_Af5md1M9R8EAfo4_ktccjXWpO1sqA9LUeZloaAzLyvj04Q&oe=69FB1707"
+                  src="/tk-image/tk28.jpg"
                   className="rounded-3xl shadow-2xl border border-white/10 hover:scale-105 transition-transform duration-700"
                   alt="Espresso Machine"
                 />
@@ -663,11 +668,31 @@ const Home = () => {
       {/** New or Company anountment */}
       <section className="py-24 bg-white px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-16 flex items-center gap-4">
-            <h2 className="text-2xl md:text-5xl font-lao text-[#1A0F0A] italic">
-              "ຂ່າວສານລ່າສຸດກ່ຽວກັບພວກເຮົາ"
-            </h2>
-            <div className="h-px flex-1 bg-gray-100 hidden md:block" />
+          <div className="text-center mb-20 px-6">
+            <div className="flex flex-col items-center">
+              <div className="mb-6">
+                <svg
+                  width="40"
+                  height="40"
+                  viewBox="0 0 40 40"
+                  fill="none"
+                  className="opacity-20"
+                >
+                  <path
+                    d="M20 0L22.5 17.5L40 20L22.5 22.5L20 40L17.5 22.5L0 20L17.5 17.5L20 0Z"
+                    fill="#D4AF37"
+                  />
+                </svg>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-lao text-[#1A0F0A] relative inline-block px-8">
+                ຂ່າວສານລ່າສຸດກ່ຽວກັບພວກເຮົາ
+                <div className="absolute -left-2 top-1/2 w-4 h-4 border-l-2 border-t-2 border-[#D4AF37]" />
+                <div className="absolute -right-2 bottom-1/2 w-4 h-4 border-r-2 border-b-2 border-[#D4AF37]" />
+              </h2>
+              <p className="mt-6 text-gray-500 font-lao text-xs uppercase tracking-[0.3em]">
+                Discover our latest updates
+              </p>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
@@ -677,7 +702,7 @@ const Home = () => {
               className="lg:col-span-7 group cursor-pointer"
             >
               <div className="relative overflow-hidden rounded-[2.5rem] aspect-[16/10] mb-8 shadow-xl">
-                <div className="absolute top-6 left-6 z-20 bg-[#D4AF37] text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
+                <div className="absolute top-6 left-6 z-20 bg-[#D4AF37] text-white px-4 py-1.5 rounded-full text-[6px] md:text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>

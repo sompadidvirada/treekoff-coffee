@@ -9,7 +9,7 @@ const Fanchise = () => {
           {/* Big Visual Side */}
           <div className="lg:w-1/2 h-[400px] sm:h-[500px] lg:h-auto relative">
             <img
-              src="https://www.treekoff.coffee/img/franchise/xangkhu_branch_1.jpeg"
+              src="/tk-image/tk25.jpeg"
               alt="Franchise Opportunity"
               className="w-full h-full object-cover"
             />

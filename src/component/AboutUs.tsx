@@ -19,15 +19,14 @@ const AboutUs = () => {
               <div className="h-[500px] rounded-3xl overflow-hidden group">
                 <img
                   src={
-                    "https://scontent.fvte1-2.fna.fbcdn.net/v/t39.30808-6/644630202_960499329824631_4888984346109572953_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=7b2446&_nc_ohc=JIMbLOjavnUQ7kNvwFSx1kF&_nc_oc=AdqmyZhQnNTNhPbJyzykf4RsZOZBPtTr7SiVlsl9pUXqdoWgimfd7ym_uhwEYVkaDD4&_nc_zt=23&_nc_ht=scontent.fvte1-2.fna&_nc_gid=947t8z6D0-VVBpmYLWSntg&_nc_ss=7b2a8&oh=00_Af7KFTALAoKqwFSd_idcPhyh9a59HnOsbmDOTN5ru3dvVQ&oe=69F9CE26"
-                  }
+                   "/tk-image/tk21.jpg" }
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
               <div className="h-[500px] rounded-3xl overflow-hidden md:mt-12 group">
                 <img
                   src={
-                    "https://www.treekoff.coffee/img/background_story_2.jpeg"
+                    "/tk-image/tk22.jpeg"
                   }
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
@@ -35,8 +34,7 @@ const AboutUs = () => {
               <div className="h-[500px] rounded-3xl overflow-hidden group">
                 <img
                   src={
-                    "https://scontent.fvte3-1.fna.fbcdn.net/v/t39.30808-6/684672993_1010161054858458_8079050262759236734_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_ohc=MC131GxHeIQQ7kNvwG3BMuQ&_nc_oc=AdpnbSFHl11vLET9oKminFDFSKLHmrk2vj3PzknQJlWqJKg_4Z7_HiMFgOZ2RsMjgeM&_nc_zt=23&_nc_ht=scontent.fvte3-1.fna&_nc_gid=2Q0CEqSLAWzCa9cyWbJLaA&_nc_ss=7b2a8&oh=00_Af7Whkim0ES3l4Q1gljuuztDLt_hi8hUrDugjx3K17RTGA&oe=69F9D6BB"
-                  }
+                   "/tk-image/tk20.jpg"  }
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
@@ -83,22 +81,20 @@ const AboutUs = () => {
               <div className="h-[500px] rounded-3xl overflow-hidden group">
                 <img
                   src={
-                    "https://scontent.fvte5-1.fna.fbcdn.net/v/t39.30808-6/634859460_953904760484088_4492844117435038973_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=104&ccb=1-7&_nc_sid=7b2446&_nc_ohc=mTPCazcUUQgQ7kNvwEzRkKZ&_nc_oc=AdoDvyAvxTe_5FjLZJIv1fW7cgXlBoIFlVHIAN7UIKfGr8TUAmgdJWitV-BM6l1EM_I&_nc_zt=23&_nc_ht=scontent.fvte5-1.fna&_nc_gid=geBnqpaX5dWTO3PtAInBcg&_nc_ss=7b2a8&oh=00_Af5UcAttrGJaPHKchdxKMJAS2EcXGQm_aTaJDd5rTS-Ijw&oe=69F9CC55"
-                  }
+                  "/tk-image/tk23.jpg"}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
               <div className="h-[500px] rounded-3xl overflow-hidden md:mt-12 group">
                 <img
                   src={
-                    "https://scontent.fvte1-2.fna.fbcdn.net/v/t39.30808-6/636524009_953843673823530_545718831740918760_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=101&ccb=1-7&_nc_sid=7b2446&_nc_ohc=qXGFopy3ilIQ7kNvwFi_-Xu&_nc_oc=AdoyE8PvcP3QBVJQEI_5RAZlO84UecKdaK2M2BtfY2bM0hgAusQAoEe8qPH2NXz4DZQ&_nc_zt=23&_nc_ht=scontent.fvte1-2.fna&_nc_gid=zN1kQQAMXE9eVrbWCCzz9Q&_nc_ss=7b2a8&oh=00_Af7fEPbIrPNK3L0SbpAk_KEbPJnL3hzxNm8xCyXjyfdVQQ&oe=69F9EC25"
-                  }
+                  "/tk-image/tk24.jpg"}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
               <div className="h-[500px] rounded-3xl overflow-hidden group">
                 <img
-                  src={"/tk-image/tk7.jpg"}
+                  src={"/tk-image/tk7.JPG"}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>

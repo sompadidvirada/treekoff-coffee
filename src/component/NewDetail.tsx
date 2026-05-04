@@ -26,7 +26,7 @@ const NewDetail = () => {
     {
       id: 2,
       image:
-        "https://scontent.fvte1-2.fna.fbcdn.net/v/t39.30808-6/682687700_1010159548191942_387393452640065946_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=7b2446&_nc_ohc=HG5QRkIzWyYQ7kNvwEKQ1K7&_nc_oc=AdrUtNHFWFq8gWjZUfe2J56dSv3i2WncYyw1gicyR7_CnTL2Z39w0Vk4RmRI4mcLxCA&_nc_zt=23&_nc_ht=scontent.fvte1-2.fna&_nc_gid=V0UZAhXOqxXM315SpVTFKQ&_nc_ss=7b2a8&oh=00_Af7o1d73Evk-QBqCPg4ua5m47MpIVNjEoJN0WqW_GmMzAw&oe=69FA05E8",
+      "/tk-image/tk29.jpg",
       date: "April 28, 2026",
       title: "ໂປຮໂມຊັ່ນສະຫຼອງສາຂາເປີດໃຫ່ມ ສາຂາ ໂພນສີນວນ",
       description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",
@@ -34,7 +34,7 @@ const NewDetail = () => {
     {
       id: 3,
       image:
-        "https://scontent.fvte5-1.fna.fbcdn.net/v/t39.30808-6/677466598_1004220388785858_5379267257476667586_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=7b2446&_nc_ohc=YkMxZnhIpz4Q7kNvwGIyz1u&_nc_oc=Adr8UM93ju8jnOsZ0hd4FcBf2ZOraMJuTlybgVh-ig80xB4hG6lgsTHpwG2d5lesyVc&_nc_zt=23&_nc_ht=scontent.fvte5-1.fna&_nc_gid=NYo1nKJnUP1GJ37vcO96pQ&_nc_ss=7b2a8&oh=00_Af4U_2rsI5g9_yyiChgCGfKUlLGRVXTHSMH5cUytsLNOEQ&oe=69FA0565",
+      "/tk-image/tk30.jpg",  
       date: "April 28, 2026",
       title: "ໂປຮໂມຊັ່ນສະຫຼອງສາຂາເປີດໃຫ່ມ ສາຂາ ໂພນສີນວນ",
       description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",
@@ -42,7 +42,7 @@ const NewDetail = () => {
     {
       id: 4,
       image:
-        "https://scontent.fvte3-1.fna.fbcdn.net/v/t39.30808-6/677832717_27062877063304129_8985271323232133348_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_ohc=OhN01NmMQs4Q7kNvwEt-P--&_nc_oc=Adr_PKY7oEjA3NaEkRORA4ENxqFXn65ikReRPoXJUq73TS_ChEd674ymCbVY9xRRKtw&_nc_zt=23&_nc_ht=scontent.fvte3-1.fna&_nc_gid=TuAKClQ0lSEAdQbXXIfdNw&_nc_ss=7b2a8&oh=00_Af5NhuUoAFsSqKouACdhI567S93EQaRd0vMdBj2rshD_-Q&oe=69F9E6FF",
+      "/tk-image/tk31.jpg",
       date: "April 28, 2026",
       title: "ສາຂາ ໜອງດ້ວງ ເປີດເປັນທາງການ",
       description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",
@@ -50,15 +50,15 @@ const NewDetail = () => {
     {
       id: 5,
       image:
-        "https://scontent.fvte3-1.fna.fbcdn.net/v/t39.30808-6/677832717_27062877063304129_8985271323232133348_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_ohc=OhN01NmMQs4Q7kNvwEt-P--&_nc_oc=Adr_PKY7oEjA3NaEkRORA4ENxqFXn65ikReRPoXJUq73TS_ChEd674ymCbVY9xRRKtw&_nc_zt=23&_nc_ht=scontent.fvte3-1.fna&_nc_gid=TuAKClQ0lSEAdQbXXIfdNw&_nc_ss=7b2a8&oh=00_Af5NhuUoAFsSqKouACdhI567S93EQaRd0vMdBj2rshD_-Q&oe=69F9E6FF",
-      date: "April 28, 2026",
+        "/tk-image/tk31.jpg",
+         date: "April 28, 2026",
       title: "ສາຂາ ໜອງດ້ວງ ເປີດເປັນທາງການ",
       description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",
     },
     {
       id: 6,
       image:
-        "https://scontent.fvte3-1.fna.fbcdn.net/v/t39.30808-6/677832717_27062877063304129_8985271323232133348_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_ohc=OhN01NmMQs4Q7kNvwEt-P--&_nc_oc=Adr_PKY7oEjA3NaEkRORA4ENxqFXn65ikReRPoXJUq73TS_ChEd674ymCbVY9xRRKtw&_nc_zt=23&_nc_ht=scontent.fvte3-1.fna&_nc_gid=TuAKClQ0lSEAdQbXXIfdNw&_nc_ss=7b2a8&oh=00_Af5NhuUoAFsSqKouACdhI567S93EQaRd0vMdBj2rshD_-Q&oe=69F9E6FF",
+      "/tk-image/tk31.jpg",
       date: "April 28, 2026",
       title: "ສາຂາ ໜອງດ້ວງ ເປີດເປັນທາງການ",
       description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",
@@ -66,7 +66,7 @@ const NewDetail = () => {
     {
       id: 7,
       image:
-        "https://scontent.fvte3-1.fna.fbcdn.net/v/t39.30808-6/677832717_27062877063304129_8985271323232133348_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_ohc=OhN01NmMQs4Q7kNvwEt-P--&_nc_oc=Adr_PKY7oEjA3NaEkRORA4ENxqFXn65ikReRPoXJUq73TS_ChEd674ymCbVY9xRRKtw&_nc_zt=23&_nc_ht=scontent.fvte3-1.fna&_nc_gid=TuAKClQ0lSEAdQbXXIfdNw&_nc_ss=7b2a8&oh=00_Af5NhuUoAFsSqKouACdhI567S93EQaRd0vMdBj2rshD_-Q&oe=69F9E6FF",
+      "/tk-image/tk31.jpg",
       date: "April 28, 2026",
       title: "ສາຂາ ໜອງດ້ວງ ເປີດເປັນທາງການ",
       description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",
@@ -74,7 +74,7 @@ const NewDetail = () => {
     {
       id: 8,
       image:
-        "https://scontent.fvte3-1.fna.fbcdn.net/v/t39.30808-6/677832717_27062877063304129_8985271323232133348_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_ohc=OhN01NmMQs4Q7kNvwEt-P--&_nc_oc=Adr_PKY7oEjA3NaEkRORA4ENxqFXn65ikReRPoXJUq73TS_ChEd674ymCbVY9xRRKtw&_nc_zt=23&_nc_ht=scontent.fvte3-1.fna&_nc_gid=TuAKClQ0lSEAdQbXXIfdNw&_nc_ss=7b2a8&oh=00_Af5NhuUoAFsSqKouACdhI567S93EQaRd0vMdBj2rshD_-Q&oe=69F9E6FF",
+      "/tk-image/tk31.jpg",
       date: "April 28, 2026",
       title: "ສາຂາ ໜອງດ້ວງ ເປີດເປັນທາງການ",
       description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",
@@ -82,7 +82,7 @@ const NewDetail = () => {
     {
       id: 9,
       image:
-        "https://scontent.fvte3-1.fna.fbcdn.net/v/t39.30808-6/677832717_27062877063304129_8985271323232133348_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_ohc=OhN01NmMQs4Q7kNvwEt-P--&_nc_oc=Adr_PKY7oEjA3NaEkRORA4ENxqFXn65ikReRPoXJUq73TS_ChEd674ymCbVY9xRRKtw&_nc_zt=23&_nc_ht=scontent.fvte3-1.fna&_nc_gid=TuAKClQ0lSEAdQbXXIfdNw&_nc_ss=7b2a8&oh=00_Af5NhuUoAFsSqKouACdhI567S93EQaRd0vMdBj2rshD_-Q&oe=69F9E6FF",
+      "/tk-image/tk31.jpg",
       date: "April 28, 2026",
       title: "ສາຂາ ໜອງດ້ວງ ເປີດເປັນທາງການ",
       description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",
@@ -90,7 +90,7 @@ const NewDetail = () => {
     {
       id: 10,
       image:
-        "https://scontent.fvte3-1.fna.fbcdn.net/v/t39.30808-6/677832717_27062877063304129_8985271323232133348_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_ohc=OhN01NmMQs4Q7kNvwEt-P--&_nc_oc=Adr_PKY7oEjA3NaEkRORA4ENxqFXn65ikReRPoXJUq73TS_ChEd674ymCbVY9xRRKtw&_nc_zt=23&_nc_ht=scontent.fvte3-1.fna&_nc_gid=TuAKClQ0lSEAdQbXXIfdNw&_nc_ss=7b2a8&oh=00_Af5NhuUoAFsSqKouACdhI567S93EQaRd0vMdBj2rshD_-Q&oe=69F9E6FF",
+      "/tk-image/tk31.jpg",
       date: "April 28, 2026",
       title: "ສາຂາ ໜອງດ້ວງ ເປີດເປັນທາງການ",
       description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",

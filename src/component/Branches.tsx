@@ -43,7 +43,7 @@ const Branches = () => {
                 {
                   id: 1,
                   ratng: 9.2,
-                  image: "/tk-image/tk7.jpg",
+                  image: "/tk-image/tk7.JPG",
                   name: "ສາຂາ ໜອງໜ່ຽງ",
                   province: "ນະຄອນຫຼວງວຽງຈັນ",
                   location: "",
@@ -53,7 +53,7 @@ const Branches = () => {
                 {
                   id: 2,
                   ratng: 7.2,
-                  image: "/tk-image/tk8.jpg",
+                  image: "/tk-image/tk8.JPG",
                   name: "ສາຂາ ວັດຈັນ",
                   province: "ນະຄອນຫຼວງວຽງຈັນ",
                   location: "",
@@ -63,7 +63,7 @@ const Branches = () => {
                 {
                   id: 3,
                   ratng: 9.2,
-                  image: "tk-image/tk9.jpg",
+                  image: "tk-image/tk9.JPG",
                   name: "ສາຂາ ພາກຊັ້ນ",
                   province: "ນະຄອນຫຼວງວຽງຈັນ",
                   location: "",
