@@ -10,18 +10,40 @@ import {
   SiInstagram,
   SiX,
 } from "@icons-pack/react-simple-icons";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { fecthSigleNewForClient } from "api/news";
+
+type News = {
+  id : number
+  title: string
+  sub_title: string
+  description: string
+  status: boolean
+  created_at: Date
+  articles_image: []
+}
 
 const ArticlePage = () => {
-  const images = ["/tk-image/tk29.jpg", "/tk-image/tk32.jpg", "/tk-image/tk33.jpg"];
+  const images = [
+    "/tk-image/tk29.jpg",
+    "/tk-image/tk32.jpg",
+    "/tk-image/tk33.jpg",
+  ];
+  const { id } = useParams();
+  const [news, setNews] = useState<News>();
 
-  const pinnedPost = {
-    id: 1,
-    title: "ທຮິຄອຟ ສາຂາສິບຸນເຮືອງ ກຽມພ້ອມເປີດບໍລິການແລ້ວໄວໆນີ້",
-    date: "MAY 01, 2026",
-    description:
-      "ສຳລັບສາຂາສີບຸນເຮືອງນັ້ນແມ່ນໃກ້ສຳເລັດການກໍສ້າງ ພ້ອມທີ່ຈະໃຫ້ບໍລິການຄົນຮັກກາເຟໃນໄວໆນີ້.",
-    image: "https://www.treekoff.coffee/img/coffee_plant/bolaven_coffee1.jpeg",
-  };
+  useEffect(() => {
+    const fecthNewsById = async () => {
+      try {
+        const ress = await fecthSigleNewForClient(id);
+        setNews(ress.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fecthNewsById();
+  }, []);
 
   return (
     <div className="min-h-screen bg-white font-lao pt-10">
@@ -33,13 +55,14 @@ const ArticlePage = () => {
         </div>
 
         <h1 className="text-4xl md:text-6xl text-[#1A0F0A] leading-[1.2] mb-8 italic">
-          ທຮິຄອຟ ສາຂາສິບຸນເຮືອງ ກຽມພ້ອມເປີດບໍລິການແລ້ວໄວໆນີ້
+          {news?.title}
         </h1>
+        <p className="text-[#1A0F0A] opacity-70 leading-[1.2] mb-8 italic">{news?.sub_title}</p>
 
         <div className="flex items-center gap-6 text-gray-400 text-sm border-y border-gray-100 py-6">
           <div className="flex items-center gap-2">
             <Calendar size={16} />
-            <span>May 01, 2026</span>
+            <span>{new Date(news?.created_at).toLocaleDateString()}</span>
           </div>
           <div className="flex items-center gap-2">
             <Clock size={16} />
@@ -62,24 +85,24 @@ const ArticlePage = () => {
           autoplay={images.length > 1 ? { delay: 5000 } : false}
           className="rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden shadow-2xl aspect-[16/9] md:aspect-[12/8]"
         >
-          {images.map((img, index) => (
+          {news?.articles_image?.map((img, index) => (
             <SwiperSlide key={index}>
               <img
                 src={img}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
                 alt={`Slide ${index + 1}`}
               />
             </SwiperSlide>
           ))}
 
           {/* Custom Navigation Arrows (Only show if multiple images) */}
-          {images.length > 1 && (
+          {images?.length > 1 && (
             <>
               <button className="prev-btn absolute left-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-[#1A0F0A] rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                <ChevronLeft size={24} />
+                <ChevronLeft size={24} className="text-black"/>
               </button>
               <button className="next-btn absolute right-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-[#1A0F0A] rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                <ChevronRight size={24} />
+                <ChevronRight size={24}  className="text-black"/>
               </button>
             </>
           )}
@@ -100,8 +123,7 @@ const ArticlePage = () => {
       <div className="max-w-3xl mx-auto px-6 pb-24">
         <div className="prose prose-lg prose-stone max-w-none">
           <div className="bg-[#FDFBF7] p-10 rounded-3xl border-l-4 border-[#D4AF37] italic text-lg text-[#1A0F0A]">
-            ພວກເຮົາຕື່ນເຕັ້ນທີ່ຈະແຈ້ງໃຫ້ຊາບວ່າ ສາຂາໃໝ່ລ່າສຸດຂອງພວກເຮົາ
-            ທີ່ບ້ານສິບຸນເຮືອງ ແມ່ນໃກ້ຈະສຳເລັດສົມບູນແລ້ວ.
+           {news?.description}
           </div>
         </div>
 
@@ -116,7 +138,7 @@ const ArticlePage = () => {
               <button
                 onClick={() =>
                   window.open(
-                    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`,
+                    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(news.title)}`,
                     "_blank",
                   )
                 }
@@ -130,7 +152,7 @@ const ArticlePage = () => {
               <button
                 onClick={() =>
                   window.open(
-                    `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(pinnedPost.title)}`,
+                    `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(news.title)}`,
                     "_blank",
                   )
                 }
@@ -144,7 +166,7 @@ const ArticlePage = () => {
               <button
                 onClick={() =>
                   window.open(
-                    `https://api.whatsapp.com/send?text=${encodeURIComponent(pinnedPost.title + " " + window.location.href)}`,
+                    `https://api.whatsapp.com/send?text=${encodeURIComponent(news.title + " " + window.location.href)}`,
                     "_blank",
                   )
                 }

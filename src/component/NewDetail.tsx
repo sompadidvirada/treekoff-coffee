@@ -1,110 +1,46 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import PageTransition from "./PageTransition";
+import { getAllNews } from "api/news";
 
 const NewDetail = () => {
   // 1. Pagination State
   const [currentPage, setCurrentPage] = useState(1);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const POSTS_PER_PAGE = 3;
-  const MAX_PAGES = 5; // As per your request
+  const MAX_PAGES = 5; 
+
+  
+
+  const [news, setNews] = useState([]);
+  const pinNews = news?.find((item) => item?.status === true) || news[0];
+  const [totalCount, setTotalCount] = useState(1)
+  const totalPages = Math.ceil(totalCount / MAX_PAGES);
+  const newsDisplay = news?.slice(1)
+
+  useEffect(() => {
+    const fecthAllNews = async () => {
+      try {
+        const ress = await getAllNews(MAX_PAGES, currentPage);
+        console.log(ress)
+        setNews(ress.data.data);
+        setTotalCount(ress.data.total_count)
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fecthAllNews();
+  }, [currentPage]);
+
+  console.log(currentPage)
+
+
 
   const handleOpenDetail = (id: string | number) => {
     // This opens in a new tab
     window.open(`/news/${id}`, "_blank");
   };
-  const pinnedPost = {
-    id: 1,
-    title: "ທຮິຄອຟ ສາຂາສິບຸນເຮືອງ ກຽມພ້ອມເປີດບໍລິການແລ້ວໄວໆນີ້",
-    date: "MAY 01, 2026",
-    description:
-      "ສຳລັບສາຂາສີບຸນເຮືອງນັ້ນແມ່ນໃກ້ສຳເລັດການກໍສ້າງ ພ້ອມທີ່ຈະໃຫ້ບໍລິການຄົນຮັກກາເຟໃນໄວໆນີ້.",
-    image: "https://www.treekoff.coffee/img/coffee_plant/bolaven_coffee1.jpeg",
-  };
 
-  const regularPosts = [
-    {
-      id: 2,
-      image:
-      "/tk-image/tk29.jpg",
-      date: "April 28, 2026",
-      title: "ໂປຮໂມຊັ່ນສະຫຼອງສາຂາເປີດໃຫ່ມ ສາຂາ ໂພນສີນວນ",
-      description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",
-    },
-    {
-      id: 3,
-      image:
-      "/tk-image/tk30.jpg",  
-      date: "April 28, 2026",
-      title: "ໂປຮໂມຊັ່ນສະຫຼອງສາຂາເປີດໃຫ່ມ ສາຂາ ໂພນສີນວນ",
-      description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",
-    },
-    {
-      id: 4,
-      image:
-      "/tk-image/tk31.jpg",
-      date: "April 28, 2026",
-      title: "ສາຂາ ໜອງດ້ວງ ເປີດເປັນທາງການ",
-      description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",
-    },
-    {
-      id: 5,
-      image:
-        "/tk-image/tk31.jpg",
-         date: "April 28, 2026",
-      title: "ສາຂາ ໜອງດ້ວງ ເປີດເປັນທາງການ",
-      description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",
-    },
-    {
-      id: 6,
-      image:
-      "/tk-image/tk31.jpg",
-      date: "April 28, 2026",
-      title: "ສາຂາ ໜອງດ້ວງ ເປີດເປັນທາງການ",
-      description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",
-    },
-    {
-      id: 7,
-      image:
-      "/tk-image/tk31.jpg",
-      date: "April 28, 2026",
-      title: "ສາຂາ ໜອງດ້ວງ ເປີດເປັນທາງການ",
-      description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",
-    },
-    {
-      id: 8,
-      image:
-      "/tk-image/tk31.jpg",
-      date: "April 28, 2026",
-      title: "ສາຂາ ໜອງດ້ວງ ເປີດເປັນທາງການ",
-      description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",
-    },
-    {
-      id: 9,
-      image:
-      "/tk-image/tk31.jpg",
-      date: "April 28, 2026",
-      title: "ສາຂາ ໜອງດ້ວງ ເປີດເປັນທາງການ",
-      description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",
-    },
-    {
-      id: 10,
-      image:
-      "/tk-image/tk31.jpg",
-      date: "April 28, 2026",
-      title: "ສາຂາ ໜອງດ້ວງ ເປີດເປັນທາງການ",
-      description: "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ...",
-    },
-  ];
-
-  // 2. Pagination Logic
-  const totalPages = Math.min(
-    Math.ceil(regularPosts.length / POSTS_PER_PAGE),
-    MAX_PAGES,
-  );
-  const indexOfLastPost = currentPage * POSTS_PER_PAGE;
-  const indexOfFirstPost = indexOfLastPost - POSTS_PER_PAGE;
-  const currentPosts = regularPosts.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -130,12 +66,12 @@ const NewDetail = () => {
           </div>
 
           <div
-            className={`grid grid-cols-1 ${regularPosts.length > 0 ? "lg:grid-cols-12" : "max-w-4xl mx-auto"} gap-16`}
+            className={`grid grid-cols-1 ${news?.length > 0 ? "lg:grid-cols-12" : "max-w-4xl mx-auto"} gap-16`}
           >
             {/* PINNED POST */}
             <article
-              onClick={() => handleOpenDetail(pinnedPost.id)} // CLICK HANDLER ADDED
-              className={`${regularPosts.length > 0 ? "lg:col-span-7" : "col-span-1"} group cursor-pointer`}
+              onClick={() => handleOpenDetail(pinNews.id)} // CLICK HANDLER ADDED
+              className={`${news?.length > 0 ? "lg:col-span-7" : "col-span-1"} group cursor-pointer`}
             >
               <div className="relative overflow-hidden rounded-[2.5rem] aspect-[16/10] mb-8 shadow-xl bg-gray-50">
                 <div className="absolute top-6 left-6 z-20 bg-[#D4AF37] text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
@@ -146,29 +82,28 @@ const NewDetail = () => {
                   Pinned Story
                 </div>
                 <img
-                  src="https://www.treekoff.coffee/img/coffee_plant/bolaven_coffee1.jpeg" // Placeholder for tk3
+                  src={pinNews?.articles_image[0]} // Placeholder for tk3
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
                 />
               </div>
               <div className="space-y-4 px-2">
                 <time className="text-xs text-[#D4AF37] font-bold tracking-widest">
-                  MAY 01, 2026
+                 {new Date(pinNews?.created_at).toLocaleDateString()}
                 </time>
                 <h3 className="text-2xl md:text-4xl font-lao text-[#1A0F0A] group-hover:text-[#D4AF37] transition-colors leading-tight">
-                  ທຮິຄອຟ ສາຂາສິບຸນເຮືອງ ກຽມພ້ອມເປີດບໍລິການແລ້ວໄວໆນີ້
+                  {pinNews?.sub_title}
                 </h3>
                 <p className="text-gray-500 text-sm md:text-lg font-lao leading-relaxed">
-                  ສຳລັບສາຂາສີບຸນເຮືອງນັ້ນແມ່ນໃກ້ສຳເລັດການກໍສ້າງ
-                  ພ້ອມທີ່ຈະໃຫ້ບໍລິການຄົນຮັກກາເຟໃນໄວໆນີ້.
+                  {pinNews?.description}
                 </p>
               </div>
             </article>
 
             {/* SIDEBAR WITH PAGINATION */}
-            {regularPosts.length > 0 && (
+            {newsDisplay?.length > 0 && (
               <div className="lg:col-span-5 flex flex-col lg:pl-10 lg:border-l lg:border-gray-100">
                 <div className="space-y-8 flex-1">
-                  {currentPosts.map((rp) => (
+                  {newsDisplay?.map((rp) => (
                     <article
                       onClick={() => handleOpenDetail(rp.id)}
                       key={rp.id}
@@ -176,14 +111,14 @@ const NewDetail = () => {
                     >
                       <div className="w-24 h-24 md:w-28 md:h-28 shrink-0 overflow-hidden rounded-2xl border border-gray-100 shadow-sm bg-gray-50">
                         <img
-                          src={rp.image}
+                          src={rp?.articles_image[0]}
                           alt={rp.title}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         />
                       </div>
                       <div className="space-y-2">
                         <time className="text-[10px] text-gray-400 font-bold uppercase tracking-tighter">
-                          {rp.date}
+                          {new Date(rp.created_at).toLocaleDateString()}
                         </time>
                         <h4 className="text-sm md:text-md font-bold font-lao text-[#1A0F0A] group-hover:text-[#D4AF37] transition-colors leading-snug line-clamp-2">
                           {rp.title}
@@ -224,9 +159,9 @@ const NewDetail = () => {
 
                   <button
                     onClick={() =>
-                      currentPage < totalPages && paginate(currentPage + 1)
+                      currentPage < totalCount && paginate(currentPage + 1)
                     }
-                    disabled={currentPage === totalPages}
+                    disabled={currentPage === totalCount}
                     className="p-2 rounded-full hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                   >
                     <ChevronRight size={20} className="text-[#1A0F0A]" />

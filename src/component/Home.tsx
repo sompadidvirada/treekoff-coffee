@@ -1,55 +1,20 @@
 import React, { useState, useEffect, useRef, type ReactNode } from "react";
 import { Coffee, Play } from "lucide-react";
-
 import { SiApple } from "@icons-pack/react-simple-icons";
 import { useNavigate } from "react-router-dom";
-
-const menuItems = [
-  {
-    image: "https://www.treekoff.coffee/img/menu/java_chip.jpeg",
-    name: "Java Chip",
-    price: 85000,
-  },
-  {
-    image: "https://www.treekoff.coffee/img/menu/iced_cappucino.jpeg",
-    name: "Ices Cappucino",
-    price: 36000,
-  },
-  {
-    image: "https://www.treekoff.coffee/img/menu/black_coffee.jpeg",
-    name: "Iced Mocha",
-    price: 36000,
-  },
-  {
-    image: "https://www.treekoff.coffee/img/menu/iced_orange_coffee.jpeg",
-    name: "Orange Coffee",
-    price: 42000,
-  },
-  {
-    image: "https://www.treekoff.coffee/img/menu/iced_coconut.jpeg",
-    name: "Iced Coconut Coffee",
-    price: 42000,
-  },
-  {
-    image: "https://www.treekoff.coffee/img/menu/classic_yokurt.jpeg",
-    name: "Classic Yokurt",
-    price: 54000,
-  },
-];
-
-const pinnedPost = {
-  id: 1,
-  title: "ທຮິຄອຟ ສາຂາສິບຸນເຮືອງ ກຽມພ້ອມເປີດບໍລິການແລ້ວໄວໆນີ້",
-  date: "MAY 01, 2026",
-  description:
-    "ສຳລັບສາຂາສີບຸນເຮືອງນັ້ນແມ່ນໃກ້ສຳເລັດການກໍສ້າງ ພ້ອມທີ່ຈະໃຫ້ບໍລິການຄົນຮັກກາເຟໃນໄວໆນີ້.",
-  image: "https://www.treekoff.coffee/img/coffee_plant/bolaven_coffee1.jpeg",
-};
+import { getAllDataHomePage } from "api/for_client";
+import { Helmet } from "react-helmet";
 
 // --- Types ---
 interface SectionWrapperProps {
   children: ReactNode;
   className?: string;
+}
+interface AllData {
+  news: any[];
+  board_detail: any[];
+  home_cover_images: any[];
+  menu_recommend: any[];
 }
 
 // --- Scroll Reveal Component ---
@@ -92,29 +57,51 @@ const handleOpenDetail = (id: string | number) => {
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
-  const slides: string[] = [
-    "/tk-image/ws1.jpg",
-    "/tk-image/ws2.jpg",
-    "/tk-image/tk1.jpg",
-    "/tk-image/tk2.jpg",
-  ];
+  const [data, setData] = useState<AllData>({
+    news: [],
+    board_detail: [],
+    home_cover_images: [],
+    menu_recommend: [],
+  });
+  const featuredNews =
+    data?.news?.find((item) => item.status === true) || data?.news?.[0];
+  const newsToDisplay = data?.news?.slice(1);
+
+  useEffect(() => {
+    const fecthData = async () => {
+      try {
+        const ress = await getAllDataHomePage();
+        setData(ress.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fecthData();
+  }, []);
+
   const navigator = useNavigate();
 
   useEffect(() => {
-    // Only handle the slider timer here
+    if (!data?.home_cover_images?.length) return;
+
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
+      setCurrentSlide((prev) => (prev + 1) % data.home_cover_images.length);
     }, 3000);
 
     return () => {
       clearInterval(timer);
     };
-  }, [slides.length]);
+  }, [data?.home_cover_images]);
+
+  <Helmet>
+    <link rel="preload" as="image" href={data?.home_cover_images?.[0]} />
+  </Helmet>;
+
   return (
     <div className="min-h-screen bg-[#FDFBF7] text-[#2C1810] font-sans">
       {/* 2. HERO SECTION */}
       <section className="relative h-screen w-full overflow-hidden bg-[#1A0F0A]">
-        {slides.map((slide, idx) => (
+        {data?.home_cover_images?.map((slide, idx) => (
           <div
             key={idx}
             className={`absolute inset-0 transition-all duration-[2000ms] ease-out ${
@@ -126,6 +113,7 @@ const Home = () => {
             <img
               src={slide}
               alt="Coffee"
+              loading="eager"
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#1A0F0A] via-[#1A0F0A]/40 to-transparent z-10" />
@@ -550,12 +538,21 @@ const Home = () => {
       2. Group: Used to pause animation on hover
   */}
         <div className="relative overflow-x-auto no-scrollbar cursor-grab active:cursor-grabbing group">
-          <div className="animate-marquee flex gap-8 whitespace-nowrap">
+          <div
+            className="animate-marquee flex gap-8 whitespace-nowrap"
+            style={{
+              animationDuration: `${data?.menu_recommend?.length * 6}s`,
+            }}
+          >
             {/* 
           Map twice (2x) is usually enough for an infinite loop 
           if the width is set to translateX(-50%) 
       */}
-            {[...menuItems, ...menuItems].map((item, index) => (
+            {[
+              ...data?.menu_recommend,
+              ...data?.menu_recommend,
+              ...data?.menu_recommend,
+            ].map((item, index) => (
               <div key={index} className="w-[260px] md:w-[350px] shrink-0">
                 {/* Image Container */}
                 <div className="relative overflow-hidden rounded-[2.5rem] aspect-[4/5] mb-6 shadow-xl bg-white group/item">
@@ -576,6 +573,13 @@ const Home = () => {
                     <div className="h-px w-6 bg-[#D4AF37]/40" />
                     <p className="text-[#D4AF37] font-medium text-lg font-lao">
                       {new Intl.NumberFormat().format(item.price)} ກີບ
+                    </p>
+                    <div className="h-px w-6 bg-[#D4AF37]/40" />
+                  </div>
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="h-px w-6 bg-[#D4AF37]/40" />
+                    <p className="text-[#D4AF37] font-medium text-xs font-lao">
+                      {item.type}
                     </p>
                     <div className="h-px w-6 bg-[#D4AF37]/40" />
                   </div>
@@ -610,32 +614,7 @@ const Home = () => {
       <section id="staff" className="py-24 px-6 bg-[#FDFBF7]">
         <SectionWrapper className="max-w-6xl mx-auto">
           <div className="grid gap-24">
-            {[
-              {
-                name: "Thinnakone PHETKHAMPHOU",
-                role: "Chairman Of Board",
-                quote:
-                  "ໃນວັນທີ 11 ເດືອນ ພາຈິກ ປີ 2021 ເປັນວັນທີ່ ຮ້ານກາເຟ Treekoff ເຊິ່ງເປັນ “ແບຣນຮ້ານກາເຟຂອງຄົນລາວ ແລະ ບໍລິຫານໂດຍຄົນລາວຢ່າງແທ້ຈິງ” ໄດ້ປະກາດໂຕເຂົ້າມາມີສ່ວນຮ່ວມໃນຕະຫຼາດແຟຣນຊາຍຮ້ານກາເຟຂອງປະເທດລາວຢ່າງເປັນທາງການ. ທາງບໍລິສັດເຮົາມີທີມງານທີມີຄວາມຊຽວຊານທາງດ້ານການຂົ້ວເມັດກາເຟຕະຫຼອດເຖິງການຊົງເຄື່ອງດື່ມກາເຟທີ່ມີຄວາມເຂັມຂຸ້ນຈາກເມັດກາເຟທີ່ທາງທີມງານໄດ້ຄັດສັນມາຈາກ ເມືອງ ປາກຊອງ, ພູພຽງບໍລະເວດທີ່ມີການປູກຝັງຕົ້ນກາເຟທີ່ມີຄຸນນະພາບທີ່ສຸດໃນປະເທດລາວ. ເພາະສະນັ້ນແລ້ວການທີ່ພວກເຮົາເຂົ້າມີສ່ວນຮ່ວມໃນຕະຫຼາດແຟຣນຊາຍຮ້ານກາເຟແມ່ນເປັນເລື່ອງທີ່ທ້າທາຍຫຼາຍ, ເພາະຕ້ອງໄດ້ຮັບມື້ກັບ ການສ້າງຄວາມເສື່ອໝັນໃຫ້ກັບລູກຄ້າ ແລະ ການຮັບມືກັບ ຮ້ານກາເຟແບຣນອັນດັບຕົ້ນໆຂອງຕ່າງປະເທດ ທີ່ເຂົ້າມາມີສ່ວນແບ່ງໃນຕະຫຼາດປະເທດລາວ. ແຕ່ເຖິງຢ່າງໃດກໍຕາມ, ຂ້າພະເຈົ້າເອງມີຄວາມເຊື່ອໝັນໃນທີມງານ ແລະ ການສະໜັບສະໜູນຈາກລູກຄ້າມາໂດຍຕະຫຼອດ, ເຊິ່ງເປັນແຮງພັກດັນໃຫ້ພວກເຮົາກ້າວໄປຂ້າງໜ້າ ແລະ ມີການພັດທະນາໃນທຸກໆອົງປະກອບທີ່ຈະນຳພາ ຮ້ານກາເຟ Treekoff ກ້າວໄປຊູ “ແບຣນຮ້ານກາເຟອັນດັບ 1 ຂອງປະເທດລາວ ແລະ ບໍ່ນ້ອຍໜ້າໄປກວ່າແບຣນຕ່າງປະເທດ.",
-                img: "https://www.treekoff.coffee/img/team/president_2.jpeg",
-                side: "left",
-              },
-              {
-                name: "Ekkasith VIRADA",
-                role: "Chief Executive Officer",
-                quote:
-                  "ທີຄອຟຄືແບຣນກາເຟທີ່ພວກເຮົາໄດ້ລີເລີ່ມຮ່ວມກັນ, ສ້າງສັນຂຶ້ນມາບົນພື້ນຖານຄື ເຮົາຕ້ອງການໃຫ້ກາເຟລາວມິຄຸນນະພາບສູ້ກັບກາເຟຕ່າງປະເທດໄດ້ຢ່າງສົມສັກສີ ພາຍໃນໂຈດດັ່ງກ່າວຂ້າພະເຈົ້າໄດ້ຕັ້ງໃຈຄັດສັນວັດຖຸດິບໂດຍການລົງໄປເບິ່ງ ແລະ ສຳພັດເມັດກາເຟເຖິງເມືອງ ປາກຊ່ອງ ຈົນໝັ້ນໃຈວ່າເມັດກາເຟທິ່ຂົ້ວມາໃຫ້ລູກຄ້າມີຄຸນນະພາບ ຈົນມາຮອດປັດຈຸບັນທີຄອຟເປັນທີ່ຮູ້ຈັກກັນທົ່ວໄປໃນນັກດື່ມກາເຟ, ທີຄອຟສາມາດຂະຫຍາຍໄປຄວບຄຸມພື້ນທີ່ສຳຄັນໃນນະຄອນຫຼວງວຽງຈັນ ຂ້າພະເຈົ້າເຊື່ອ ແລະ ໝັ້ນໃຈວ່າພາຍໃນອານາຄົດອັນໃກ້ນີ້ທີຄອຟຈະໄດ້ຮັບການຍອມຮັບຈາກນັກດື່ມທົ່ວໄປ ແລະ ທີິຄອຟຈະກາຍເປັນກາເຟແບຣນອັນດັນໜຶ່ງໃນປະເທດລາວ.",
-                img: "https://www.treekoff.coffee/img/ceo_pic.jpg",
-                side: "right",
-              },
-              {
-                name: "Souniluk SENGKEO",
-                role: "Head of Treekoff Department",
-                quote:
-                  "ກ່ອນອື່ນໝົດນ້ອງຕ້ອງຂອບໃຈຜູ້ອໍານວຍການທີ່ໃຫ້ໂອກາດນ້ອງໄດ້ເຂົ້າມາບໍລິຫານໜ້າວຽກນີ້ ເຊິ່ງກ່ອນຈະໄດ້ມາເປັນແບຣນທີຄອຟຍ້ອນນ້ອງໄດ້ເຫັນເຖິງຄວາມຕັ້ງໃຈຂອງຜູ້ບໍລິຫານທຸກທ່ານທີ່ຢາກໃຫ້ຄົນລາວຫັນມາບໍລິໂພກຜະລິດຕະພັນຂອງຄົນລາວດ້ວຍກັນ, ນ້ອງຈຶ່ງໄດ້ມີໂອກາດເຂົ້າມາຮັບໜ້າທີ່ດູແລ ເລື່ອງຄຸນນະພາບ ແລະ ມາດຕະຖານຂອງເຄື່ອງດື່ມທຸກຈອກທີ່ເສີບໃຫ້ລູກຄ້າເຮົາໄດ້ຄັດສັນວັດຖຸດິບທີ່ມີຄຸນນະພາບແລະໃສ່ໃຈທຸກຂັ້ນຕອນເພື່ອຢາກໃຫ້ລູກຄ້າທີ່ເຂົ້າມາບໍລິໂພກມີຄວາມປະທັບໃຈ, ນ້ອງເຊື່ອວ່າແບຣນຂອງຄົນລາວກໍບໍ່ແພ້ແບຣນຂອງຕ່າງປະເທດ ແລະ ໃນອານາຄົດ ແບຣນ Treekoff ຈະກ້າວໄປສູ່ລະດັບສາກົນແນ່ນອນ.",
-                img: "https://www.treekoff.coffee/img/team/kataiy3.jpeg",
-                side: "left",
-              },
-            ].map((person, i) => (
+            {data?.board_detail?.map((person, i) => (
               <div
                 key={i}
                 className={`flex flex-col ${person.side === "right" ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-12 md:gap-20`}
@@ -643,7 +622,7 @@ const Home = () => {
                 <div className="relative">
                   <div className="absolute inset-0 bg-[#C4A484] rounded-full blur-3xl opacity-20 -z-10"></div>
                   <img
-                    src={person.img}
+                    src={person.image}
                     className="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-[12px] border-white shadow-2xl"
                     alt={person.name}
                   />
@@ -653,10 +632,10 @@ const Home = () => {
                     {person.name}
                   </h3>
                   <p className="text-[#D4AF37] font-bold uppercase tracking-widest text-sm">
-                    {person.role}
+                    {person.position}
                   </p>
                   <p className="text-xm md:text-2xl italic text-gray-700 leading-relaxed font-lao">
-                    "{person.quote}"
+                    "{person.speech}"
                   </p>
                   <div className="h-1 w-12 bg-[#D4AF37] mx-auto md:mx-0"></div>
                 </div>
@@ -695,99 +674,76 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-            {/* PINNED POST */}
-            <article
-              onClick={() => handleOpenDetail(pinnedPost.id)}
-              className="lg:col-span-7 group cursor-pointer"
-            >
-              <div className="relative overflow-hidden rounded-[2.5rem] aspect-[16/10] mb-8 shadow-xl">
-                <div className="absolute top-6 left-6 z-20 bg-[#D4AF37] text-white px-4 py-1.5 rounded-full text-[6px] md:text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-                  </span>
-                  Pinned Story
-                </div>
-                <img
-                  src={"/tk-image/tk3.jpg"}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
-                />
-              </div>
-              <div className="space-y-4 px-2">
-                <time className="text-xs text-[#D4AF37] font-bold tracking-widest">
-                  MAY 01, 2026
-                </time>
-                <h3 className="text-2xl md:text-4xl font-lao text-[#1A0F0A] group-hover:text-[#D4AF37] transition-colors leading-tight">
-                  ທຮິຄອຟ ສາຂາສິບຸນເຮືອງ ກຽມພ້ອມເປີດບໍລິການແລ້ວໄວໆນີ້
-                </h3>
-                <p className="text-gray-500 text-sm md:text-lg font-lao leading-relaxed">
-                  ສຳລັບສາຂາສີບຸນເຮືອງນັ້ນແມ່ນໃກ້ສຳເລັດການກໍສ້າງ...
-                </p>
-              </div>
-            </article>
-
-            {/* REGULAR POSTS WITH VERTICAL DIVIDER */}
-            <div className="lg:col-span-5 space-y-8 lg:pl-10 lg:border-l lg:border-gray-100">
-              {[
-                {
-                  id: 1,
-                  image: "/tk-image/tk4.jpg",
-                  date: "April 28, 2026",
-                  title: "ໂປຮໂມຊັ່ນສະຫຼອງສາຂາເປີດໃຫ່ມ ສາຂາ ໂພນສີນສນ",
-                  description:
-                    "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ສຳລັບລູກຄ້າທີ່ເຂົ້າມາຊື້ເຄື່ອງດື່ມ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ",
-                },
-                {
-                  id: 2,
-                  image: "/tk-image/tk5.jpg",
-                  date: "April 28, 2026",
-                  title: "ໂປຮໂມຊັ່ນສະຫຼອງສາຂາເປີດໃຫ່ມ ສາຂາ ໂພນສີນສນ",
-                  description:
-                    "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ສຳລັບລູກຄ້າທີ່ເຂົ້າມາຊື້ເຄື່ອງດື່ມ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ",
-                },
-                {
-                  id: 3,
-                  image: "/tk-image/tk6.jpg",
-                  date: "April 28, 2026",
-                  title: "ສາຂາ ໜອງດ້ວງ ເປີດເປັນທາງການ",
-                  description:
-                    "ເປີດໂຕຢ່າງເປັນທາງການແລ້ວສຳລັບສາຂາໂພນສີນວນ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ສຳລັບລູກຄ້າທີ່ເຂົ້າມາຊື້ເຄື່ອງດື່ມ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ ພ້ອມນີ້ທາງເຮົາຍັງມີໂປຮໂມຊັ່ນພິເສດ",
-                },
-              ].map((rp, i) => (
-                <article
-                  onClick={() => handleOpenDetail(rp.id)}
-                  key={i}
-                  className="flex gap-5 group cursor-pointer border-b border-gray-50 pb-8 last:border-0 hover:translate-x-1 transition-transform duration-300"
-                >
-                  <div className="w-24 h-24 md:w-28 md:h-28 shrink-0 overflow-hidden rounded-2xl border border-gray-100 shadow-sm">
-                    <img
-                      src={rp.image}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <time className="text-[10px] text-gray-400 font-bold uppercase tracking-tighter">
-                      {rp.date}
-                    </time>
-                    <h4 className="text-sm md:text-md font-bold font-lao text-[#1A0F0A] group-hover:text-[#D4AF37] transition-colors leading-snug line-clamp-2">
-                      {rp.title}
-                    </h4>
-                    <p className="text-[11px] text-gray-400 font-lao line-clamp-2">
-                      {rp.description}
-                    </p>
-                  </div>
-                </article>
-              ))}
-
-              <button
-                onClick={() => navigator(`/news`)}
-                className="w-full font-lao py-4 bg-gray-50 rounded-2xl text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#D4AF37] hover:text-white transition-all shadow-sm"
+          {featuredNews && (
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+              {/* PINNED POST */}
+              <article
+                onClick={() => handleOpenDetail(featuredNews.id)}
+                className="lg:col-span-7 group cursor-pointer"
               >
-                ເບີ່ງທັງໝົດ
-              </button>
+                <div className="relative overflow-hidden rounded-[2.5rem] aspect-[16/10] mb-8 shadow-xl">
+                  <div className="absolute top-6 left-6 z-20 bg-[#D4AF37] text-white px-4 py-1.5 rounded-full text-[6px] md:text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                    </span>
+                    Pinned Story
+                  </div>
+                  <img
+                    src={featuredNews.articles_image[0]}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                  />
+                </div>
+                <div className="space-y-4 px-2">
+                  <time className="text-xs text-[#D4AF37] font-bold tracking-widest">
+                    {new Date(featuredNews.created_at).toLocaleDateString()}
+                  </time>
+                  <h3 className="text-2xl md:text-4xl font-lao text-[#1A0F0A] group-hover:text-[#D4AF37] transition-colors leading-tight">
+                    {featuredNews.title}
+                  </h3>
+                  <p className="text-gray-500 text-sm md:text-lg font-lao leading-relaxed line-clamp-2">
+                    {featuredNews.description}
+                  </p>
+                </div>
+              </article>
+
+              {/* REGULAR POSTS WITH VERTICAL DIVIDER */}
+              <div className="lg:col-span-5 space-y-8 lg:pl-10 lg:border-l lg:border-gray-100">
+                {newsToDisplay.map((rp, i) => (
+                  <article
+                    onClick={() => handleOpenDetail(rp.id)}
+                    key={i}
+                    className="flex gap-5 group cursor-pointer border-b border-gray-50 pb-8 last:border-0 hover:translate-x-1 transition-transform duration-300"
+                  >
+                    <div className="w-24 h-24 md:w-28 md:h-28 shrink-0 overflow-hidden rounded-2xl border border-gray-100 shadow-sm">
+                      <img
+                        src={rp.articles_image[0]}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <time className="text-[10px] text-gray-400 font-bold uppercase tracking-tighter">
+                        {new Date(rp.created_at).toLocaleDateString()}
+                      </time>
+                      <h4 className="text-sm md:text-md font-bold font-lao text-[#1A0F0A] group-hover:text-[#D4AF37] transition-colors leading-snug line-clamp-2">
+                        {rp.title}
+                      </h4>
+                      <p className="text-[11px] text-gray-400 font-lao line-clamp-2">
+                        {rp.description}
+                      </p>
+                    </div>
+                  </article>
+                ))}
+
+                <button
+                  onClick={() => navigator(`/news`)}
+                  className="w-full font-lao py-4 bg-gray-50 rounded-2xl text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#D4AF37] hover:text-white transition-all shadow-sm"
+                >
+                  ເບີ່ງທັງໝົດ
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
       {/* FRANCHISE BREAK: STYLE 5 */}

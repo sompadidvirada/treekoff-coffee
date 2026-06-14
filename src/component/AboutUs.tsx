@@ -129,7 +129,7 @@ const AboutUs = () => {
               </div>
 
               <div className="mt-32 pt-12 border-t border-white/5">
-                <p className="text-xl text-[#D4AF37] font-lao tracking-wide uppercase opacity-70">
+                <p className="text-sm md:text-xl text-[#D4AF37] font-lao tracking-wide uppercase opacity-70">
                   ດ້ວຍວິໄສທັດ ແລະ ເປົ້າໝາຍເທິງນີ້ທີມງານເຮົາຕ້ອງພັດທະນາຄຸນນະພາບ
                   ແລະ ມາດຕະຖານໃນການບໍລິການຂອງເຮົາໃຫ້ເປັນສາກົນທີ່ສຸດ.
                   ພວກເຮົາໝັ້ນໃຈເປັນຢ່າງຍິ່ງວ່າແບຣນທີຄອຟຈະກາຍເປັນແບຣນກາເຟທີ່ໂດ່ງດັງໄປທົ່ວພູມິພາກນີ້

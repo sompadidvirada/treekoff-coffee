@@ -54,7 +54,7 @@ const Navbar = () => {
       link: "joinus",
     },
     {
-      title: "CONTRACT",
+      title: "CONTACT",
       link: "contract",
     },
   ];

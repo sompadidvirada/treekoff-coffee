@@ -1,7 +1,30 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import PageTransition from "./PageTransition";
+import { useEffect, useState } from "react";
+import { GetContactDetail } from "api/contact";
+
+interface CompanyContact {
+  id?: number;
+  address: string;
+  email: string;
+  phone: string;
+  location_url: string;
+}
 
 const Contract = () => {
+  const [contact, setContact] = useState<CompanyContact>();
+
+  useEffect(() => {
+    const fecthContact = async () => {
+      try {
+        const ress = await GetContactDetail();
+        setContact(ress.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fecthContact();
+  }, []);
   return (
     <PageTransition>
       <section className="bg-white pt-48 pb-20">
@@ -38,10 +61,8 @@ const Contract = () => {
                 <h4 className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-3">
                   Our Location
                 </h4>
-                <p className="text-[#1A0F0A] font-lao text-sm leading-relaxed">
-                  ບ້ານ ສິບຸນເຮືອງ, ເມືອງ ຈັນທະບູລິ
-                  <br />
-                  ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ
+                <p className="text-[#1A0F0A] font-lao text-sm leading-relaxed whitespace-pre-line">
+                  {contact?.address ? contact.address : "-"}
                 </p>
               </div>
             </div>
@@ -56,7 +77,7 @@ const Contract = () => {
                   Email Inquiry
                 </h4>
                 <p className="text-[#1A0F0A] font-serif text-lg leading-none">
-                  bigtreetrading1@gmail.com
+                  {contact?.email ? contact.email : "-"}
                 </p>
                 <p className="text-gray-400 text-xs mt-2 font-lao">
                   ຕິດຕໍ່ສອບຖາມຂໍ້ມູນເພີ່ມເຕີມ
@@ -74,7 +95,7 @@ const Contract = () => {
                   Call Us
                 </h4>
                 <p className="text-[#1A0F0A] font-serif text-lg leading-none">
-                  +856 20 59 534 390
+                  {contact?.phone ? contact.phone : "-"}
                 </p>
                 <p className="text-gray-400 text-xs mt-2 font-lao">
                   ໂທຫາພວກເຮົາໃນເວລາທຳການ
