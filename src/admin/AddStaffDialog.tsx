@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { UserPlus, Phone, Lock, Camera } from "lucide-react";
+import { UserPlus, Phone, Camera } from "lucide-react";
 import { createStaff } from "../../api/home_cover_image";
 
 interface AddStaffDialogProps {

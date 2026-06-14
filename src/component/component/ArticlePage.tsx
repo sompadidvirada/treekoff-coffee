@@ -15,14 +15,14 @@ import { useEffect, useState } from "react";
 import { fecthSigleNewForClient } from "api/news";
 
 type News = {
-  id : number
-  title: string
-  sub_title: string
-  description: string
-  status: boolean
-  created_at: Date
-  articles_image: []
-}
+  id: number;
+  title: string;
+  sub_title: string;
+  description: string;
+  status: boolean;
+  created_at: Date;
+  articles_image: [];
+};
 
 const ArticlePage = () => {
   const images = [
@@ -34,6 +34,7 @@ const ArticlePage = () => {
   const [news, setNews] = useState<News>();
 
   useEffect(() => {
+    if (!id) return;
     const fecthNewsById = async () => {
       try {
         const ress = await fecthSigleNewForClient(id);
@@ -57,12 +58,14 @@ const ArticlePage = () => {
         <h1 className="text-4xl md:text-6xl text-[#1A0F0A] leading-[1.2] mb-8 italic">
           {news?.title}
         </h1>
-        <p className="text-[#1A0F0A] opacity-70 leading-[1.2] mb-8 italic">{news?.sub_title}</p>
+        <p className="text-[#1A0F0A] opacity-70 leading-[1.2] mb-8 italic">
+          {news?.sub_title}
+        </p>
 
         <div className="flex items-center gap-6 text-gray-400 text-sm border-y border-gray-100 py-6">
           <div className="flex items-center gap-2">
             <Calendar size={16} />
-            <span>{new Date(news?.created_at).toLocaleDateString()}</span>
+            <span>{new Date(news?.created_at ? news?.created_at : "").toLocaleDateString()}</span>
           </div>
           <div className="flex items-center gap-2">
             <Clock size={16} />
@@ -99,10 +102,10 @@ const ArticlePage = () => {
           {images?.length > 1 && (
             <>
               <button className="prev-btn absolute left-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-[#1A0F0A] rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                <ChevronLeft size={24} className="text-black"/>
+                <ChevronLeft size={24} className="text-black" />
               </button>
               <button className="next-btn absolute right-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-[#1A0F0A] rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                <ChevronRight size={24}  className="text-black"/>
+                <ChevronRight size={24} className="text-black" />
               </button>
             </>
           )}
@@ -123,7 +126,7 @@ const ArticlePage = () => {
       <div className="max-w-3xl mx-auto px-6 pb-24">
         <div className="prose prose-lg prose-stone max-w-none">
           <div className="bg-[#FDFBF7] p-10 rounded-3xl border-l-4 border-[#D4AF37] italic text-lg text-[#1A0F0A]">
-           {news?.description}
+            {news?.description}
           </div>
         </div>
 
@@ -138,7 +141,7 @@ const ArticlePage = () => {
               <button
                 onClick={() =>
                   window.open(
-                    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(news.title)}`,
+                    `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(news?.title ? news?.title : "")}`,
                     "_blank",
                   )
                 }
@@ -152,7 +155,7 @@ const ArticlePage = () => {
               <button
                 onClick={() =>
                   window.open(
-                    `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(news.title)}`,
+                    `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(news?.title ? news?.title : "")}`,
                     "_blank",
                   )
                 }
@@ -166,7 +169,7 @@ const ArticlePage = () => {
               <button
                 onClick={() =>
                   window.open(
-                    `https://api.whatsapp.com/send?text=${encodeURIComponent(news.title + " " + window.location.href)}`,
+                    `https://api.whatsapp.com/send?text=${encodeURIComponent(news?.title ? news?.title : ""  + " " + window.location.href)}`,
                     "_blank",
                   )
                 }
