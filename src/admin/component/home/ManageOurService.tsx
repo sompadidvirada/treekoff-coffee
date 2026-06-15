@@ -13,7 +13,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { toast } from "sonner";
-import { updateOurservice } from "api/our_service";
 
 const mockData = [
   {

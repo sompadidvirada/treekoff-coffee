@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CirclePlus, Pencil, Upload, X } from "lucide-react";
+import { Pencil, Upload, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

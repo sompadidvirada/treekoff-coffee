@@ -3,6 +3,17 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import PageTransition from "./PageTransition";
 import { getAllNews } from "api/news";
 
+
+type News = {
+  status: boolean
+  id: number
+  articles_image: string[]
+  created_at: string
+  sub_title: string
+  description: string
+  title: string
+}
+
 const NewDetail = () => {
   // 1. Pagination State
   const [currentPage, setCurrentPage] = useState(1);
@@ -11,7 +22,7 @@ const NewDetail = () => {
 
   
 
-  const [news, setNews] = useState([]);
+  const [news, setNews] = useState<News[]>([]);
   const pinNews = news?.find((item) => item?.status === true) || news[0];
   const [totalCount, setTotalCount] = useState(1)
   const totalPages = Math.ceil(totalCount / MAX_PAGES);

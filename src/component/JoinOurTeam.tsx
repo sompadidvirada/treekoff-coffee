@@ -4,6 +4,16 @@ import PageTransition from "./PageTransition";
 import { useEffect, useState } from "react";
 import { GetAllJobRequireClient, JoRequireInterest } from "api/job_require";
 
+type Jobs = {
+  job_description_name: string
+  job_level: string
+  branch_name: string
+  province_name: string
+  require_number: number
+  contact_number: string
+  job_description_id: number
+}
+
 const JoinOurTeam = () => {
   const getIcon = (pos: string) => {
     switch (pos.toLowerCase()) {
@@ -16,7 +26,7 @@ const JoinOurTeam = () => {
     }
   };
 
-  const [jobss, setJobss] = useState([]);
+  const [jobss, setJobss] = useState<Jobs[]>([]);
 
   useEffect(() => {
     const fecthJobRequire = async () => {

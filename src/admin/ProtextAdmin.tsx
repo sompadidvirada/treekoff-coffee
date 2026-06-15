@@ -1,5 +1,4 @@
 import { VerifyCookie } from "api/authentication";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
@@ -9,7 +8,7 @@ const ProtextAdmin = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const ress = await VerifyCookie()
+        await VerifyCookie()
         setIsAuthenticated(true);
       } catch (err) {
         setIsAuthenticated(false);

@@ -3,7 +3,6 @@ import { Coffee, Play } from "lucide-react";
 import { SiApple } from "@icons-pack/react-simple-icons";
 import { useNavigate } from "react-router-dom";
 import { getAllDataHomePage } from "api/for_client";
-import { Helmet } from "react-helmet";
 
 // --- Types ---
 interface SectionWrapperProps {
@@ -93,9 +92,6 @@ const Home = () => {
     };
   }, [data?.home_cover_images]);
 
-  <Helmet>
-    <link rel="preload" as="image" href={data?.home_cover_images?.[0]} />
-  </Helmet>;
 
   return (
     <div className="min-h-screen bg-[#FDFBF7] text-[#2C1810] font-sans">

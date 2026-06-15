@@ -12,7 +12,6 @@ import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { editCategory } from "api/coffee_menu";
-import { number } from "framer-motion";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -36,7 +35,7 @@ const EditCate = ({ category, setCategory }: Prop) => {
 
     const name = formData.get("name");
     try {
-      const ress = await editCategory(category.id, formData);
+       await editCategory(category.id, formData);
       setCategory((prev) =>
         prev.map((item) =>
           item.id == category.id ? { ...item, name: name } : item,

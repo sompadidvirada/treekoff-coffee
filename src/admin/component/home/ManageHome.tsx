@@ -20,15 +20,6 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-// Mock Data for the Treekoff Covers
-const initialCovers = [
-  { id: 1, url: "/tk-image/tk1.jpg", isCurrent: true },
-  {
-    id: 2,
-    url: "/tk-image/tk2.jpg",
-    isCurrent: false,
-  },
-];
 
 const ManageHome = () => {
   const [covers, setCovers] = useState([]);

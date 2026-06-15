@@ -3,14 +3,32 @@ import PageTransition from "./PageTransition";
 import { useEffect, useMemo, useState } from "react";
 import { getAllBranchs } from "api/for_client";
 
+type Branchs = {
+  name: string;
+  image : string
+  province_id: number;
+  qc_rating: number
+  province_name_lao: string
+  location_des: string
+  phoen: string
+  email: string
+  location_url: string
+  galory_image_url: string
+};
+
+type Province = {
+  total_branch: number;
+  name_eng: string;
+  name_lao: string;
+  privince_id: number;
+};
+
 const Branches = () => {
   const [search, setSearch] = useState("");
   const [selectedProvince, setSelectedProvince] = useState("14");
-  const [branchess, setBranchess] = useState([]);
-  const [province, setProvince] = useState([]);
+  const [branchess, setBranchess] = useState<Branchs[]>([]);
+  const [province, setProvince] = useState<Province[]>([]);
   const [totalBranch, setTotalBranch] = useState();
-
-
 
   // filter branch
   const filteredBranches = useMemo(() => {
@@ -18,7 +36,8 @@ const Branches = () => {
       const matchSearch = b.name.toLowerCase().includes(search.toLowerCase());
 
       const matchProvince =
-        selectedProvince === "all" || b.province_id === Number(selectedProvince);
+        selectedProvince === "all" ||
+        b.province_id === Number(selectedProvince);
 
       return matchSearch && matchProvince;
     });
@@ -38,8 +57,7 @@ const Branches = () => {
     feacthBrachess();
   }, []);
 
-
-  console.log(branchess)
+  console.log(branchess);
   return (
     <PageTransition>
       <div className="bg-[#FDFBF7] pt-6 w-full">
@@ -176,7 +194,7 @@ const Branches = () => {
 
                             <div className="space-y-1 md:space-y-2">
                               <p className="text-[#1A0F0A] font-bold text-xs md:text-sm">
-                               {b.phoen}
+                                {b.phoen}
                               </p>
 
                               <p className="text-[#1A0F0A] font-medium text-xs md:text-sm break-all">

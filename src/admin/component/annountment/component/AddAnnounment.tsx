@@ -12,6 +12,12 @@ interface Prop {
   setAnnouncements: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
+interface UploadedImage {
+  file: File;
+  previewUrl: string;
+}
+
+
 const AddAnnounment = ({ setTotalItems, setAnnouncements }: Prop) => {
   const [formData, setFormData] = useState({
     title: "",
@@ -20,7 +26,7 @@ const AddAnnounment = ({ setTotalItems, setAnnouncements }: Prop) => {
     images: [] as string[],
   });
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<UploadedImage[]>([]);
   const [isLoad, setIsLoad] = useState(false);
 
   const [isEditing, setIsEditing] = useState(false);

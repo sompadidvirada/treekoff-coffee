@@ -3,12 +3,34 @@ import PageTransition from "./PageTransition";
 import { getAllCoffeeMenuCleint } from "api/coffee_menu";
 import { Separator } from "@/components/ui/separator";
 
+type Menus = {
+  category_id: number
+  category_name: string
+  image: string
+  name: string
+  price: number
+  size: string
+  type: string
+}
+
+interface GroupedMenu {
+  category_id: number;
+  title: string;
+  items: {
+    name: string;
+    image: string;
+    price: number;
+    sub: string;
+    type: string;
+  }[];
+}
+
 const Menus = () => {
   // 1. Create a Ref object to store the HTML elements for each category
   const sectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
-  const [menus, setMenus] = useState([]);
+  const [menus, setMenus] = useState<Menus[]>([]);
 
-  const formattedData = menus.reduce((acc, item) => {
+  const formattedData = menus.reduce((acc:GroupedMenu[], item) => {
     // check if category already exists
     let category = acc.find((c) => c.category_id === item.category_id);
 
@@ -49,7 +71,7 @@ const Menus = () => {
   }, []);
 
   // 2. The scroll function
-  const scrollToCategory = (id: string) => {
+  const scrollToCategory = (id: number) => {
     const element = sectionRefs.current[id];
     if (element) {
       element.scrollIntoView({

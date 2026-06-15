@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect, useState } from "react";
 import {
   Table,
@@ -25,7 +23,6 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -36,12 +33,22 @@ import { EditStaffDialog } from "./EditStaffDialog";
 import ClearPasswordDialog from "./ClearPasswordDialog";
 import DeleteStaffDialog from "./DeleteStaff";
 
+type Staffs = {
+  name: string
+  role: string
+  id: number
+  image: string
+  available: boolean
+  phone: string
+  create_at: string
+}
+
 const ManageUser = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [roleFilter, setRoleFilter] = useState("ALL");
   const [isOpen, setIsOpen] = useState(false);
 
-  const [staffs, setStaffs] = useState([]);
+  const [staffs, setStaffs] = useState<Staffs[]>([]);
 
   // 1. Logic for filtering
   const filteredStaffs = React.useMemo(() => {

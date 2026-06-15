@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Pin, Trash2, Edit3, ChevronLeft, ChevronRight } from "lucide-react";
+import { Pin, Edit3, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import EditAnnouncementDialog from "./component/EditAnnouncementDialog";
 import { GetAllNews, updatePinNews } from "api/news";
