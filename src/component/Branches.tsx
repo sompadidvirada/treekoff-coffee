@@ -157,7 +157,7 @@ const Branches = () => {
                         </p>
 
                         <p className="text-[#D4AF37] font-serif text-sm md:text-xl font-bold">
-                          {b.qc_rating.toFixed(1)} / 10
+                          {b?.qc_rating?.toFixed(1)} / 10
                         </p>
                       </div>
                     </div>
