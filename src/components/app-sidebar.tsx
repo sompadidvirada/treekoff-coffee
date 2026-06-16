@@ -78,10 +78,10 @@ const data = {
         //   title: "ແກ້ໄຂຂໍ້ມູນ Discover",
         //   url: "#",
         // },
-        {
-          title: "ແກ້ໄຂຂໍ້ມູນ Our Services",
-          url: "/admin/manageourservices",
-        },
+        // {
+        //   title: "ແກ້ໄຂຂໍ້ມູນ Our Services",
+        //   url: "/admin/manageourservices",
+        // },
         {
           title: "ແກ້ໄຂເມນູແນະນຳ",
           url: "/admin/managemenurecommend",
