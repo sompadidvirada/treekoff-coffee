@@ -12,8 +12,8 @@ export const addBranch = ( form : FormData) => {
     })
 }
 
-export const getAllBranchess = (limit: number, page: number) => {
-    return axios.get(`${URL}/managebranch/getallbranches?page=${page}&limit=${limit}`, {
+export const getAllBranchess = () => {
+    return axios.get(`${URL}/managebranch/getallbranches`, {
         withCredentials: true
     })
 }

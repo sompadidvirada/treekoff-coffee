@@ -9,6 +9,7 @@ import {
   ChevronRight,
   Star,
   LayoutGrid,
+  Search,
 } from "lucide-react";
 import {
   AlertDialog,
@@ -57,10 +58,11 @@ const ManageBranches = () => {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [provinces, setProvinces] = useState([]);
   const [branchess, setBranchess] = useState([]);
-  const [totalCount, setTotalCount] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
 
+  // 1. Fetch Provinces once on mount
   useEffect(() => {
-    const faecthProvince = async () => {
+    const fetchProvince = async () => {
       try {
         const ress = await getAllProvince();
         setProvinces(ress.data);
@@ -68,37 +70,49 @@ const ManageBranches = () => {
         console.log(err);
       }
     };
-
-    faecthProvince();
+    fetchProvince();
   }, []);
 
+  // 2. Fetch ALL branches once on mount (No pagination params passed to API)
   useEffect(() => {
-    const fecthAllBranches = async () => {
+    const fetchAllBranches = async () => {
       try {
-        const ress = await getAllBranchess(itemsPerPage, currentPage);
-        setBranchess(ress.data.data);
-        setTotalCount(ress.data.total_count);
+        // Removed itemsPerPage and currentPage from the API call
+        const ress = await getAllBranchess();
+
+        // Adjust depending on your API response structure.
+        // If your "get all" endpoint returns the raw array directly, use ress.data
+        const allBranches = ress.data.data || ress.data;
+        setBranchess(allBranches);
       } catch (err) {
         console.log(err);
       }
     };
 
-    fecthAllBranches();
-  }, [currentPage]);
+    fetchAllBranches();
+  }, []); // Empty dependency array means this runs only once when the page loads
 
-  // Then inside your JSX:
+  // 3. Filter across the ENTIRE dataset locally
+  const filteredBranches = branchess.filter((branch) => {
+    const matchesProvince =
+      selectedProvince === "all" || branch.province_id === selectedProvince;
+    const matchesSearch = branch.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    return matchesProvince && matchesSearch;
+  });
 
-  // Mock Data
-
-  // 1. Filter Logic
-
-  const filteredBranches = useMemo(() => {
-    if (selectedProvince === "all") return branchess;
-    return branchess.filter((b) => b.province_id === selectedProvince);
-  }, [selectedProvince, branchess]);
-
-  // 2. Pagination Logic
+  // 4. Calculate total counts and pages dynamically from the filtered results
+  const totalCount = filteredBranches.length;
   const totalPages = Math.ceil(totalCount / itemsPerPage);
+
+  // 5. Slice the filtered branches so only 5 are visible on the current page
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentPageBranches = filteredBranches.slice(
+    indexOfFirstItem,
+    indexOfLastItem,
+  );
 
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [activeBranch, setActiveBranch] = useState(null);
@@ -106,36 +120,36 @@ const ManageBranches = () => {
   const handleEditClick = (branch) => {
     setActiveBranch(branch);
     setIsEditOpen(true);
-    console.log(isEditOpen);
   };
 
   const handleDelete = async (id: number, name: string) => {
     try {
       await deleteBranch(id);
       toast.success(`ລົບ "${name}"ສຳເລັດ`);
-      setBranchess((prev) => prev.filter((item) => item.id != id));
+      setBranchess((prev) => prev.filter((item) => item.id !== id));
+
+      // Edge-case adjustment: If you delete the last item on the last page, move back a page
+      if (currentPageBranches.length === 1 && currentPage > 1) {
+        setCurrentPage((prev) => prev - 1);
+      }
     } catch (err) {
       console.log(err);
       toast.error(`ລອງໃຫ່ມພາຍຫລັງ`);
     }
   };
 
-  //getting star fucntion
-
   const getStarCount = (score: number) => {
     if (score >= 98) return 5;
     if (score >= 95) return 4;
     if (score >= 90) return 3;
     if (score >= 85) return 2;
-    if (score == null) return null
-
+    if (score == null) return null;
     return 1;
   };
-
   return (
     <div className="p-8 w-full font-lao mx-auto space-y-8 antialiased min-h-screen bg-white text-zinc-950">
       {/* HEADER SECTION */}
-      <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-zinc-100 pb-10">
+      <header className="flex flex-col xl:flex-row xl:items-end justify-between gap-6 border-b border-zinc-100 pb-10">
         <div className="space-y-1">
           <div className="flex items-center gap-2 text-zinc-400">
             <MapPin size={14} />
@@ -148,7 +162,25 @@ const ManageBranches = () => {
           </h1>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full xl:w-auto">
+          {/* NEW SEARCH INPUT */}
+          <div className="relative flex-1 sm:flex-none">
+            <Search
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"
+              size={14}
+            />
+            <input
+              type="text"
+              placeholder="Search Branch Name..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setCurrentPage(1); // Reset pagination on filter change
+              }}
+              className="w-full sm:w-[260px] h-12 pl-11 pr-4 rounded-none border border-zinc-200 bg-white text-[10px] uppercase tracking-widest placeholder:text-zinc-400 focus:outline-none focus:border-zinc-950 transition-colors"
+            />
+          </div>
+
           {/* PROVINCE SELECT FILTER */}
           <Select
             onValueChange={(value) => {
@@ -156,7 +188,8 @@ const ManageBranches = () => {
               setCurrentPage(1);
             }}
           >
-            <SelectTrigger className="w-[220px] rounded-none border-zinc-200 h-12 uppercase text-[10px] tracking-widest focus:ring-0">
+            {/* Changed h-12 to h-full below */}
+            <SelectTrigger className="w-full py-6 sm:w-[220px] rounded-none border-zinc-200 h-full uppercase text-[10px] tracking-widest focus:ring-0">
               <SelectValue placeholder="All Provinces" />
             </SelectTrigger>
             <SelectContent className="rounded-none border-zinc-100 shadow-2xl">
@@ -211,7 +244,7 @@ const ManageBranches = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredBranches.map((branch) => (
+            {currentPageBranches.map((branch) => (
               <TableRow
                 key={branch.id}
                 className="group hover:bg-zinc-50/50 transition-colors border-zinc-100"
